@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>保護者連絡帳テンプレ集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e2e0d8;
+    --border2: #ccc9be;
+    --text: #1a1917;
+    --text2: #6b6860;
+    --text3: #9e9c96;
+    --accent: #2c5f8a;
+    --accent-bg: #e8f1f8;
+    --accent-border: #9cbcd8;
+    --success: #2d7a4f;
+    --success-bg: #e6f4ed;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header .icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  header p {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 1px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* カテゴリボタン */
+  .cat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cat-btn {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .15s;
+    font-weight: 500;
+  }
+
+  .cat-btn:hover { background: var(--surface2); color: var(--text); }
+
+  .cat-btn.active {
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-color: var(--accent-border);
+  }
+
+  /* テンプレートグリッド */
+  .tmpl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+  }
+
+  .tmpl-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .tmpl-card:hover {
+    border-color: var(--border2);
+    background: var(--surface);
+  }
+
+  .tmpl-card.selected {
+    border-color: var(--accent-border);
+    background: var(--accent-bg);
+  }
+
+  .tmpl-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .tmpl-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .tmpl-card.selected .tmpl-title { color: var(--accent); }
+
+  .tmpl-desc {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.4;
+  }
+
+  .placeholder {
+    color: var(--text3);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+  }
+
+  /* 名前入力 */
+  .name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .name-row label {
+    font-size: 13px;
+    color: var(--text2);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .name-row input,
+  .name-row select {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+
+  .name-row input { flex: 1; min-width: 160px; }
+
+  .name-row input:focus,
+  .name-row select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(44,95,138,.12);
+  }
+
+  /* プレビュー */
+  .preview-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    min-height: 130px;
+    margin-bottom: 14px;
+  }
+
+  .p-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 10px;
+  }
+
+  .preview-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.9;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .preview-empty {
+    font-size: 13px;
+    color: var(--text3);
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  /* ボタン行 */
+  .action-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 22px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .copy-btn:hover { background: #245278; }
+  .copy-btn:active { transform: scale(.98); }
+
+  .copy-btn.done {
+    background: var(--success);
+  }
+
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .reset-btn:hover { background: var(--surface2); color: var(--text); }
+
+  .copy-notice {
+    font-size: 13px;
+    color: var(--success);
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .copy-notice.show { opacity: 1; }
+
+  @media (max-width: 520px) {
+    header { padding: 14px 16px; }
+    header h1 { font-size: 16px; }
+    .container { padding: 16px 12px 60px; }
+    .tmpl-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .name-row { flex-direction: column; align-items: stretch; }
+    .name-row input, .name-row select { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="icon">📋</div>
+  <div>
+    <h1>保護者連絡帳テンプレ集</h1>
+    <p>状況を選択 → 生徒名を入力 → コピーの3ステップで完了</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">カテゴリを選ぶ</div>
+    </div>
+    <div class="cat-row" id="cats"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">テンプレートを選ぶ</div>
+    </div>
+    <div class="tmpl-grid" id="tmplGrid">
+      <div class="placeholder">👆 まずカテゴリを選んでください</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">生徒名を入力する</div>
+    </div>
+    <div class="name-row">
+      <label>生徒名</label>
+      <input type="text" id="nameInput" placeholder="例：田中 太郎" oninput="renderPreview()">
+      <label>敬称</label>
+      <select id="honorific" onchange="renderPreview()">
+        <option value="さん">さん</option>
+        <option value="くん">くん</option>
+        <option value="ちゃん">ちゃん</option>
+        <option value="">（なし）</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">確認してコピー</div>
+    </div>
+    <div class="preview-box">
+      <div class="p-label">プレビュー</div>
+      <div id="previewText" class="preview-empty">テンプレートを選択すると文章が表示されます</div>
+    </div>
+    <div class="action-row">
+      <button class="copy-btn" id="copyBtn" onclick="copyText()">
+        📋 コピーする
+      </button>
+      <button class="reset-btn" onclick="resetAll()">↺ リセット</button>
+      <span class="copy-notice" id="copyNotice">✓ コピーしました！</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const data = {
+  "欠席連絡": [
+    {title:"体調不良（発熱）",icon:"🌡️",desc:"発熱による欠席",tmpl:"いつもお世話になっております。本日、{name}が発熱のため欠席させていただきます。ご迷惑をおかけし大変申し訳ございません。回復次第、登校させる予定ですので、よろしくお願いいたします。"},
+    {title:"体調不良（腹痛・頭痛）",icon:"🤒",desc:"体調不良による欠席",tmpl:"いつもお世話になっております。本日、{name}が体調不良（腹痛）のためお休みさせていただきます。ご心配をおかけして申し訳ありません。早めに回復できるよう努めます。"},
+    {title:"通院・受診",icon:"🏥",desc:"病院受診のため欠席",tmpl:"いつもお世話になっております。本日は{name}が病院を受診するため欠席させていただきます。なお、診断結果等につきましては、後日改めてご報告いたします。どうぞよろしくお願いいたします。"},
+    {title:"忌引き",icon:"🕯️",desc:"忌引きによる欠席",tmpl:"いつもお世話になっております。このたび身内に不幸がございまして、{name}は本日より忌引きのためお休みさせていただきます。突然のご連絡となり誠に恐れ入りますが、何卒ご了承くださいますようお願い申し上げます。"},
+    {title:"家庭の事情",icon:"🏠",desc:"家庭の都合による欠席",tmpl:"いつもお世話になっております。本日、{name}は家庭の都合により欠席させていただきます。ご迷惑をおかけして大変申し訳ございません。詳細は後ほど改めてご連絡申し上げます。"},
+  ],
+  "遅刻・早退": [
+    {title:"遅刻連絡",icon:"⏰",desc:"登校が遅れる場合",tmpl:"いつもお世話になっております。本日、{name}は〇時頃に登校する予定です。ご迷惑をおかけして申し訳ありません。どうぞよろしくお願いいたします。"},
+    {title:"通院のため早退",icon:"🚶",desc:"病院受診で早退",tmpl:"いつもお世話になっております。本日、{name}が〇時頃に病院を受診するため早退させていただきたくご連絡いたしました。お手数をおかけしますが、どうぞよろしくお願いいたします。"},
+    {title:"家庭事情で早退",icon:"🏡",desc:"家庭の都合で早退",tmpl:"いつもお世話になっております。本日、家庭の都合により{name}を〇時頃に早退させていただきます。ご迷惑をおかけして恐縮ですが、よろしくお願いいたします。"},
+  ],
+  "忘れ物": [
+    {title:"教科書・ノート忘れ",icon:"📚",desc:"学用品の忘れ物",tmpl:"いつもお世話になっております。本日、{name}が教科書を忘れてしまいました。ご迷惑をおかけして大変申し訳ありません。帰宅後に本人と一緒に確認し、翌日は必ず持参するよう指導いたします。"},
+    {title:"体操着・給食着忘れ",icon:"👕",desc:"着替え関連の忘れ物",tmpl:"いつもお世話になっております。本日、{name}が体操着を忘れてしまいました。大変ご迷惑をおかけいたします。明日はしっかり確認して持たせますので、どうぞよろしくお願いいたします。"},
+    {title:"宿題忘れ",icon:"✏️",desc:"宿題を忘れた場合",tmpl:"いつもお世話になっております。{name}が本日、宿題を忘れてしまいました。ご迷惑をおかけして大変申し訳ありません。帰宅後に取り組み、明日提出させます。今後はしっかり確認するよう家庭でも指導いたします。"},
+    {title:"持ち物全般忘れ",icon:"🎒",desc:"持ち物の忘れ物全般",tmpl:"いつもお世話になっております。本日、{name}が〇〇を忘れてしまいました。ご不便をおかけして大変申し訳ございません。連絡帳で確認するよう声かけを徹底してまいります。"},
+  ],
+  "個別相談": [
+    {title:"面談のお願い",icon:"💬",desc:"相談したいことがある",tmpl:"いつもお世話になっております。{name}のことで少しご相談させていただきたいことがございます。ご多忙のところ誠に恐れ入りますが、近いうちにお時間をいただけないでしょうか。ご都合の良い日程をお知らせいただければ幸いです。"},
+    {title:"勉強面の心配",icon:"📖",desc:"学習面で相談したい",tmpl:"いつもお世話になっております。最近、{name}が勉強でつまずいているようで少し心配しております。先生のお立場からご様子を教えていただけますでしょうか。ご多忙中恐れ入りますが、どうぞよろしくお願いいたします。"},
+    {title:"友人関係の相談",icon:"👫",desc:"友達関係で心配がある",tmpl:"いつもお世話になっております。{name}の友人関係について気になることがございますので、一度ご相談させていただけますでしょうか。学校でのご様子も教えていただけますと大変助かります。よろしくお願いいたします。"},
+    {title:"健康面の共有",icon:"💊",desc:"健康状態を共有したい",tmpl:"いつもお世話になっております。{name}につきまして、最近〇〇の症状が続いており、念のため先生にもお伝えしておきたくご連絡いたしました。学校生活で何かお気づきのことがございましたら、ご連絡いただけますと幸いです。"},
+  ],
+  "行事・確認": [
+    {title:"行事欠席の連絡",icon:"📅",desc:"行事を欠席する場合",tmpl:"いつもお世話になっております。誠に残念ながら、{name}は〇〇（行事名）に参加できない見込みです。ご迷惑をおかけして大変申し訳ございません。詳細につきましては後ほどご連絡いたします。"},
+    {title:"持ち物・内容の確認",icon:"📝",desc:"当日の確認事項を聞く",tmpl:"いつもお世話になっております。来週の〇〇についてですが、{name}の持ち物や注意事項を改めて確認させていただけますでしょうか。お手数をおかけして恐れ入りますが、ご連絡いただけますと幸いです。"},
+    {title:"お礼・感謝",icon:"🌸",desc:"行事後のお礼",tmpl:"先日は〇〇にあたり、大変お世話になりました。{name}にとってとても良い経験になったと思います。先生をはじめご担当の皆様のおかげで充実した時間を過ごすことができました。心より感謝申し上げます。"},
+  ],
+  "その他": [
+    {title:"薬を持参させる場合",icon:"💉",desc:"学校での服薬対応依頼",tmpl:"いつもお世話になっております。本日、{name}に〇〇の薬を持参させます。〇時頃に服用させていただけますでしょうか。お手数をおかけして大変恐れ入りますが、どうぞよろしくお願いいたします。"},
+    {title:"アレルギーの共有",icon:"⚠️",desc:"アレルギー情報を伝える",tmpl:"いつもお世話になっております。{name}には〇〇アレルギーがございます。給食や理科実験など、ご対応いただけますよう何卒よろしくお願いいたします。ご不明な点はいつでもご連絡ください。"},
+    {title:"引き渡し変更",icon:"🔄",desc:"お迎え・下校の変更",tmpl:"いつもお世話になっております。本日の{name}の下校についてですが、通常と異なり〇〇（例：祖父）が迎えに伺います。お手数をおかけして大変恐れ入りますが、よろしくお願いいたします。"},
+  ],
+};
+
+let selectedCat = null;
+let selectedTmpl = null;
+
+const catsEl = document.getElementById('cats');
+const gridEl = document.getElementById('tmplGrid');
+const previewEl = document.getElementById('previewText');
+
+Object.keys(data).forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn';
+  btn.textContent = cat;
+  btn.onclick = () => selectCat(cat, btn);
+  catsEl.appendChild(btn);
+});
+
+function selectCat(cat, btn) {
+  selectedCat = cat;
+  selectedTmpl = null;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+  renderPreview();
+}
+
+function renderGrid() {
+  gridEl.innerHTML = '';
+  (data[selectedCat] || []).forEach((t, i) => {
+    const card = document.createElement('div');
+    card.className = 'tmpl-card';
+    card.innerHTML = `<div class="tmpl-icon">${t.icon}</div><div class="tmpl-title">${t.title}</div><div class="tmpl-desc">${t.desc}</div>`;
+    card.onclick = () => {
+      selectedTmpl = t;
+      document.querySelectorAll('.tmpl-card').forEach((c, j) => c.classList.toggle('selected', j === i));
+      renderPreview();
+    };
+    gridEl.appendChild(card);
+  });
+}
+
+function renderPreview() {
+  const name = document.getElementById('nameInput').value.trim();
+  const honorific = document.getElementById('honorific').value;
+  if (!selectedTmpl) {
+    previewEl.className = 'preview-empty';
+    previewEl.textContent = 'テンプレートを選択すると文章が表示されます';
+    return;
+  }
+  const displayName = name ? (name + honorific) : '【生徒名】';
+  const text = selectedTmpl.tmpl.replace(/\{name\}/g, displayName);
+  previewEl.className = 'preview-text';
+  previewEl.textContent = text;
+}
+
+function copyText() {
+  if (!selectedTmpl || previewEl.classList.contains('preview-empty')) return;
+  const text = previewEl.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    const notice = document.getElementById('copyNotice');
+    btn.classList.add('done');
+    btn.textContent = '✓ コピー済み';
+    notice.classList.add('show');
+    setTimeout(() => {
+      btn.classList.remove('done');
+      btn.textContent = '📋 コピーする';
+      notice.classList.remove('show');
+    }, 2500);
+  });
+}
+
+function resetAll() {
+  selectedCat = null;
+  selectedTmpl = null;
+  document.getElementById('nameInput').value = '';
+  document.getElementById('honorific').value = 'さん';
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  gridEl.innerHTML = '<div class="placeholder">👆 まずカテゴリを選んでください</div>';
+  previewEl.className = 'preview-empty';
+  previewEl.textContent = 'テンプレートを選択すると文章が表示されます';
+}
+</script>
+</body>
+</html>
